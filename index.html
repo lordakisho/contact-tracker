@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Account Tracker</title>
+    <meta charset="utf-8" />
+    <style>
+       body.dark-mode {
+       background-color: #222;
+       color: #fff;
+       }
+         table th {
+          font-size: 1.2rem; /* Adjust the font size as needed */
+          font-weight: bold; /* Adjust the font weight as needed */
+          text-align: center; /* Adjust the text alignment as needed */
+        }
+
+        /* Adjust font size, weight, and alignment for table cell contents */
+        table td {
+          font-size: 1rem; /* Adjust the font size as needed */
+          font-weight: normal; /* You can omit this line if you want normal weight */
+          text-align: center; /* Adjust the text alignment as needed */
+        }
+
+        /* Adjust font size, weight, and alignment for body text */
+        body {
+          font-size: 16px; /* Adjust the font size as needed */
+          font-weight: normal; /* You can omit this line if you want normal weight */
+          text-align: left; /* Adjust the text alignment as needed */
+        }
+      </style>
+  </head>
+  <body>
+    <table>
+      <thead>
+        <tr>
+          <th>Hour</th>
+          <th>Accounts Worked</th>
+          <th>Accounts Transferred</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>9:00 AM</td>
+          <td><input type="number" min="0" value="0" id="hour-1" /><button onclick="increment('hour-1')">+</button><button onclick="decrement('hour-1')">-</button></td>
+          <td><input type="number" min="0" value="0" id="transferred-hour-1" /><button onclick="incrementTransferred('transferred-hour-1')">+</button><button onclick="decrementTransferred('transferred-hour-1')">-</button></td>
+        </tr>
+        <tr>
+          <td>10:00 AM</td>
+          <td><input type="number" min="0" value="0" id="hour-2" /><button onclick="increment('hour-2')">+</button><button onclick="decrement('hour-2')">-</button></td>
+          <td><input type="number" min="0" value="0" id="transferred-hour-2" /><button onclick="incrementTransferred('transferred-hour-2')">+</button><button onclick="decrementTransferred('transferred-hour-2')">-</button></td>
+        </tr>
+        <tr>
+          <td>11:00 AM</td>
+          <td><input type="number" min="0" value="0" id="hour-3" /><button onclick="increment('hour-3')">+</button><button onclick="decrement('hour-3')">-</button></td>
+          <td><input type="number" min="0" value="0" id="transferred-hour-3" /><button onclick="incrementTransferred('transferred-hour-3')">+</button><button onclick="decrementTransferred('transferred-hour-3')">-</button></td>
+        </tr>
+        <tr>
+          <td>12:00 PM</td>
+          <td><input type="number" min="0" value="0" id="hour-4" /><button onclick="increment('hour-4')">+</button><button onclick="decrement('hour-4')">-</button></td>
+          <td><input type="number" min="0" value="0" id="transferred-hour-4" /><button onclick="incrementTransferred('transferred-hour-4')">+</button><button onclick="decrementTransferred('transferred-hour-4')">-</button></td>
+        </tr>
+        <tr>
+          <td>1:00 PM</td>
+          <td><input type="number" min="0" value="0" id="hour-5" /><button onclick="increment('hour-5')">+</button><button onclick="decrement('hour-5')">-</button></td>
+          <td><input type="number" min="0" value="0" id="transferred-hour-5" /><button onclick="incrementTransferred('transferred-hour-5')">+</button><button onclick="decrementTransferred('transferred-hour-5')">-</button></td>
+        </tr>
+        <tr>
+          <td>2:00 PM</td>
+          <td><input type="number" min="0" value="0" id="hour-6" /><button onclick="increment('hour-6')">+</button><button onclick="decrement('hour-6')">-</button></td>
+          <td><input type="number" min="0" value="0" id="transferred-hour-6" /><button onclick="incrementTransferred('transferred-hour-6')">+</button><button onclick="decrementTransferred('transferred-hour-6')">-</button></td>
+        </tr>
+        <tr>
+          <td>3:00 PM</td>
+          <td><input type="number" min="0" value="0" id="hour-7" /><button onclick="increment('hour-7')">+</button><button onclick="decrement('hour-7')">-</button></td>
+          <td><input type="number" min="0" value="0" id="transferred-hour-7" /><button onclick="incrementTransferred('transferred-hour-7')">+</button><button onclick="decrementTransferred('transferred-hour-7')">-</button></td>
+        </tr>
+        <tr>
+          <td>4:00 PM</td>
+          <td><input type="number" min="0" value="0" id="hour-8" /><button onclick="increment('hour-8')">+</button><button onclick="decrement('hour-8')">-</button></td>
+          <td><input type="number" min="0" value="0" id="transferred-hour-8" /><button onclick="incrementTransferred('transferred-hour-8')">+</button><button onclick="decrementTransferred('transferred-hour-8')">-</button></td>
+        </tr>
+        <tr>
+          <td>5:00 PM</td>
+          <td><input type="number" min="0" value="0" id="hour-9" /><button onclick="increment('hour-9')">+</button><button onclick="decrement('hour-9')">-</button></td>
+          <td><input type="number" min="0" value="0" id="transferred-hour-9" /><button onclick="incrementTransferred('transferred-hour-9')">+</button><button onclick="decrementTransferred('transferred-hour-9')">-</button></td>
+        </tr>
+        <tr>
+          <td>Total</td>
+          <td id="total">0</td>
+        </tr>
+        <tr>
+          <td>Total Transferred</td>
+          <td id="transferred-total">0</td>
+        </tr>
+        <tr>
+          <td colspan="2"><button onclick="resetHourlyTallies()">Reset Hourly Tallies</button></td>
+          <td colspan="2"><button onclick="resetTransferredTallies()">Reset Transferred Tallies</button></td>
+        </tr>
+      </tbody>
+    </table>
+    
+    <table>
+      <thead>
+        <tr>
+          <th>Day of the Week</th>
+          <th>Total Accounts</th>
+          <th>Total Transferred</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Monday</td>
+          <td><input type="number" min="0" value="0" id="day-1" onchange="updateWeekTotal()" /></td>
+          <td><input type="number" min="0" value="0" id="transferred-day-1" onchange="updateTransferredWeekTotal()" /></td>
+        </tr>
+        <tr>
+          <td>Tuesday</td>
+          <td><input type="number" min="0" value="0" id="day-2" onchange="updateWeekTotal()" /></td>
+          <td><input type="number" min="0" value="0" id="transferred-day-2" onchange="updateTransferredWeekTotal()" /></td>
+        </tr>
+        <tr>
+          <td>Wednesday</td>
+          <td><input type="number" min="0" value="0" id="day-3" onchange="updateWeekTotal()" /></td>
+          <td><input type="number" min="0" value="0" id="transferred-day-3" onchange="updateTransferredWeekTotal()" /></td>
+        </tr>
+        <tr>
+          <td>Thursday</td>
+          <td><input type="number" min="0" value="0" id="day-4" onchange="updateWeekTotal()" /></td>
+          <td><input type="number" min="0" value="0" id="transferred-day-4" onchange="updateTransferredWeekTotal()" /></td>
+        </tr>
+        <tr>
+          <td>Friday</td>
+          <td><input type="number" min="0" value="0" id="day-5" onchange="updateWeekTotal()" /></td>
+          <td><input type="number" min="0" value="0" id="transferred-day-5" onchange="updateTransferredWeekTotal()" /></td>
+        </tr>
+        <tr>
+          <td>Total</td>
+          <td id="week-total">0</td>
+          <td id="transferred-week-total">0</td>
+        </tr>
+      </tbody>
+    </table>
+    <label for="dark-mode-toggle">Dark Mode:</label>
+    <input type="checkbox" id="dark-mode-toggle">
+
+    <script>
+       // Load data from local storage on page load
+          function loadDataFromLocalStorage() {
+            for (var i = 1; i <= 9; i++) {
+              var hourElement = document.getElementById('hour-' + i);
+              var transferredHourElement = document.getElementById('transferred-hour-' + i);
+
+              var storedHourValue = localStorage.getItem('hour-' + i);
+              var storedTransferredValue = localStorage.getItem('transferred-hour-' + i);
+
+              if (storedHourValue !== null) {
+                hourElement.value = storedHourValue;
+              }
+              if (storedTransferredValue !== null) {
+                transferredHourElement.value = storedTransferredValue;
+              }
+            }
+
+            for (var i = 1; i <= 5; i++) {
+              var dayElement = document.getElementById('day-' + i);
+              var transferredDayElement = document.getElementById('transferred-day-' + i);
+
+              var storedDayValue = localStorage.getItem('day-' + i);
+              var storedTransferredDayValue = localStorage.getItem('transferred-day-' + i);
+
+              if (storedDayValue !== null) {
+                dayElement.value = storedDayValue;
+              }
+              if (storedTransferredDayValue !== null) {
+                transferredDayElement.value = storedTransferredDayValue;
+              }
+            }
+
+            updateTotal();
+            updateTransferredTotal();
+            updateWeekTotal();
+            updateTransferredWeekTotal();
+          }
+
+          // Save data to local storage
+          function saveDataToLocalStorage() {
+            for (var i = 1; i <= 9; i++) {
+              var hourElement = document.getElementById('hour-' + i);
+              var transferredHourElement = document.getElementById('transferred-hour-' + i);
+
+              localStorage.setItem('hour-' + i, hourElement.value);
+              localStorage.setItem('transferred-hour-' + i, transferredHourElement.value);
+            }
+
+            for (var i = 1; i <= 5; i++) {
+              var dayElement = document.getElementById('day-' + i);
+              var transferredDayElement = document.getElementById('transferred-day-' + i);
+
+              localStorage.setItem('day-' + i, dayElement.value);
+              localStorage.setItem('transferred-day-' + i, transferredDayElement.value);
+            }
+          }
+
+          // Load data from local storage on page load
+          window.onload = function () {
+            loadDataFromLocalStorage();
+          };
+
+          // Save data to local storage when data changes
+          window.onbeforeunload = function () {
+            saveDataToLocalStorage();
+          };
+
+        //hours functions
+      function increment(hourId) {
+        var hourElement = document.getElementById(hourId);
+        hourElement.value = parseInt(hourElement.value) + 1;
+        updateTotal();
+      }
+
+      function decrement(hourId) {
+        var hourElement = document.getElementById(hourId);
+        var value = parseInt(hourElement.value) - 1;
+        if (value >= 0) {
+          hourElement.value = value;
+          updateTotal();
+        }
+      }
+
+      function updateTotal() {
+        var total = 0;
+        for (var i = 1; i <= 9; i++) {
+          var hourElement = document.getElementById('hour-' + i);
+          total += parseInt(hourElement.value);
+        }
+        document.getElementById('total').textContent = total;
+      }
+
+      function resetHourlyTallies() {
+        for (var i = 1; i <= 9; i++) {
+          var hourElement = document.getElementById('hour-' + i);
+          hourElement.value = 0;
+        }
+        updateTotal();
+      }
+
+      function updateWeekTotal() {
+        var weekTotal = 0;
+        for (var i = 1; i <= 5; i++) {
+          var dayElement = document.getElementById('day-' + i);
+          weekTotal += parseInt(dayElement.value);
+        }
+        document.getElementById('week-total').textContent = weekTotal;
+      }
+
+      function resetDaysOfWeek() {
+        for (var i = 1; i <= 5; i++) {
+          var dayElement = document.getElementById('day-' + i);
+          dayElement.value = 0;
+        }
+        updateWeekTotal();
+      }
+      // New functions for transferred counts
+      function incrementTransferred(hourId) {
+        var hourElement = document.getElementById(hourId);
+        hourElement.value = parseInt(hourElement.value) + 1;
+        updateTransferredTotal();
+      }
+
+      function decrementTransferred(hourId) {
+        var hourElement = document.getElementById(hourId);
+        var value = parseInt(hourElement.value) - 1;
+        if (value >= 0) {
+          hourElement.value = value;
+          updateTransferredTotal();
+        }
+      }
+
+        function updateTransferredTotal() {
+          var transferredTotal = 0;
+          for (var i = 1; i <= 9; i++) {
+            var hourElement = document.getElementById('transferred-hour-' + i);
+            transferredTotal += parseInt(hourElement.value);
+          }
+          document.getElementById('transferred-total').textContent = transferredTotal;
+          updateTransferredWeekTotal(); // Add this line
+        }
+        
+        function updateTransferredWeekTotal() {
+          var transferredWeekTotal = 0;
+          for (var i = 1; i <= 5; i++) {
+            var dayElement = document.getElementById('transferred-day-' + i);
+            transferredWeekTotal += parseInt(dayElement.value);
+          }
+          document.getElementById('transferred-week-total').textContent = transferredWeekTotal;
+        }
+
+      function resetTransferredTallies() {
+        for (var i = 1; i <= 9; i++) {
+          var hourElement = document.getElementById('transferred-hour-' + i);
+          hourElement.value = 0;
+        }
+        updateTransferredTotal();
+      }
+      function resetTransferredWeekTotals() {
+        for (var i = 1; i <= 5; i++) {
+          var dayElement = document.getElementById('transferred-day-' + i);
+          dayElement.value = 0;
+        }
+        updateTransferredWeekTotal();
+      }
+      function resetPageData() {
+          // Reset hourly tallies
+          for (var i = 1; i <= 9; i++) {
+            var hourElement = document.getElementById('hour-' + i);
+            hourElement.value = 0;
+            var transferredHourElement = document.getElementById('transferred-hour-' + i);
+            transferredHourElement.value = 0;
+          }
+
+          // Reset daily tallies
+          for (var i = 1; i <= 5; i++) {
+            var dayElement = document.getElementById('day-' + i);
+            dayElement.value = 0;
+            var transferredDayElement = document.getElementById('transferred-day-' + i);
+            transferredDayElement.value = 0;
+          }
+
+          updateTotal();
+          updateTransferredTotal();
+          updateWeekTotal();
+          updateTransferredWeekTotal(); // Add this line
+        }
+        // Function to toggle dark mode
+      function toggleDarkMode() {
+        var body = document.body;
+        body.classList.toggle('dark-mode');
+      }
+
+      // Load dark mode preference from local storage on page load
+      function loadDarkModePreference() {
+        var darkModePreference = localStorage.getItem('darkMode');
+        if (darkModePreference === 'true') {
+          toggleDarkMode();
+          document.getElementById('dark-mode-toggle').checked = true;
+        }
+      }
+
+      // Save dark mode preference to local storage
+      function saveDarkModePreference(enabled) {
+        localStorage.setItem('darkMode', enabled);
+      }
+
+      // Load dark mode preference on page load
+      window.onload = function () {
+        loadDarkModePreference();
+      };
+
+      // Toggle dark mode when checkbox is clicked
+      document.getElementById('dark-mode-toggle').addEventListener('change', function () {
+        toggleDarkMode();
+        saveDarkModePreference(this.checked);
+      });
+    </script>
+
+    <table>
+      <tbody>
+        <tr>
+          <td colspan="2"><button onclick="resetDaysOfWeek()">Reset Days of the Week</button></td>
+          <td colspan="2"><button onclick="resetTransferredWeekTotals()">Reset Weekly Transferred Totals</button></td>
+        </tr>
+      </tbody>
+    </table>
+    <table>
+      <tbody>
+        <tr>
+          <td colspan="4"><button onclick="resetPageData()">Reset Entire Page</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+</html>
